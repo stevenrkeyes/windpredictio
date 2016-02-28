@@ -4,6 +4,7 @@
 
 import forecastio
 import pytz
+import warnings
 
 # import an api key as the variable api_key
 from api_key import *
@@ -14,7 +15,9 @@ lng = -71.088215
 
 # get the hourly weather forecast for EC courtyard for the next 49 hours
 def get_ec_weather():
-    forecast = forecastio.load_forecast(api_key, lat, lng)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        forecast = forecastio.load_forecast(api_key, lat, lng)
     
     byHour = forecast.hourly()
     
