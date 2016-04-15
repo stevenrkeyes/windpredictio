@@ -6,7 +6,7 @@ import datetime
 import pytz
 
 # definition of good conditions
-maxWindSpeed = 2 #mph
+maxWindSpeed = 5 #mph
 minTemperature = 30 #degF
 # maybe something about rain intensity or probability
 # (i.e., something that's just mist or that has low probability is ok)
