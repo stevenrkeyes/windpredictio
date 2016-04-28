@@ -26,12 +26,19 @@ eveningStart = datetime.datetime.combine(dayAfterTomorrow, eveningStartTime)
 eveningEnd = eveningStart + datetime.timedelta(hours=9)
 dayAfterTomorrowEveningHours = [hour for hour in hours if eveningStart <= hour.time <= eveningEnd]
 
+# evening hours of tomorrow
+eveningStart = datetime.datetime.combine(tomorrow, eveningStartTime)
+eveningEnd = eveningStart + datetime.timedelta(hours=9)
+tomorrowEveningHours = [hour for hour in hours if eveningStart <= hour.time <= eveningEnd]
+
+hoursOfInterest = tomorrowEveningHours + dayAfterTomorrowEveningHours
+
 #for hour in dayAfterTomorrowEveningHours:
 #    print hour
 
 acceptableHours = []
 # if so, print out the weather report for that evening
-for hour in dayAfterTomorrowEveningHours:
+for hour in hoursOfInterest:
     if hour.windSpeed <= maxWindSpeed:
         if hour.temperature >= minTemperature:
             acceptableHours.append(hour)
@@ -51,11 +58,11 @@ def bearingToCompassDirection(bearing):
 degree_sign= u'\N{DEGREE SIGN}'
 
 if acceptableHours:
-    print "Acceptable conditions for fire-eating have been found two days from now"
-    print "on " + str(dayAfterTomorrow) + ". Here is the hourly weather report for that evening:"
+    print "Acceptable conditions for fire-eating have been found one or two days from now"
+    print "on " + str(tomorrow) + " or " + str(dayAfterTomorrow) + ". Here is the hourly weather report for those evenings:"
     print 
-    for hour in dayAfterTomorrowEveningHours:
-        print str(hour.time.hour) + ":00: " + hour.summary + ", " + \
+    for hour in hoursOfInterest:
+        print str(hour.time.day) + " " + str(hour.time.hour) + ":00: " + hour.summary + ", " + \
               str(int(hour.temperature)) + degree_sign + "F, wind " + str(hour.windSpeed) + \
               " mph to the " + bearingToCompassDirection(hour.windBearing) + \
               ", " + str(100*hour.precipProbability) + "% precip."
