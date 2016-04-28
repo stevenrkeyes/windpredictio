@@ -11,6 +11,9 @@ minTemperature = 30 #degF
 # maybe something about rain intensity or probability
 # (i.e., something that's just mist or that has low probability is ok)
 
+# some utils for parsing weather info
+from weather_utils import *
+
 # get the hourly weather report for two days from now
 from get_ec_weather import *
 hours = get_ec_weather()
@@ -42,18 +45,6 @@ for hour in hoursOfInterest:
     if hour.windSpeed <= maxWindSpeed:
         if hour.temperature >= minTemperature:
             acceptableHours.append(hour)
-
-def bearingToCompassDirection(bearing):
-    directions = ['south',
-                  'southwest',
-                  'west',
-                  'northwest',
-                  'north',
-                  'northeast',
-                  'east',
-                  'southeast']
-    rounded = int(((bearing+22.5)%360)/45)
-    return directions[rounded]
 
 degree_sign= u'\N{DEGREE SIGN}'
 
