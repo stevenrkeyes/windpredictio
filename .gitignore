@@ -1,4 +1,4 @@
 *.pyc
 api_key.py
 *.*~
-forecast_cache.pkl
+.forecast_cache.pkl

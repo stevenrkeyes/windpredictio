@@ -18,7 +18,7 @@ def get_forecast(lat, lng, force_renew = False):
     cache_stale = False
     # also force_renew
     
-    filename = "forecast_cache.pkl"
+    filename = ".forecast_cache.pkl"
     
     try:
         # check the timestamp of the cache file (in seconds)
