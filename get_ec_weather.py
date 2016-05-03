@@ -9,6 +9,7 @@ import warnings
 from api_key import *
 
 from get_forecast import *
+from weather_utils import *
 
 # East Campus Courtyard
 lat = 42.359951
@@ -30,3 +31,7 @@ def get_ec_weather():
     #        print hourlyData.time, hourlyData.temperature, hourlyData.apparentTemperature, hourlyData.windSpeed, hourlyData.precipIntensity, hourlyData.precipProbability
 
     return byHour.data
+
+if __name__ == "__main__":
+    byHour = get_ec_weather()
+    nice_hourly_print(byHour)
