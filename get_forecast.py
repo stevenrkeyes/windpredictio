@@ -1,6 +1,6 @@
 # get_forecast.py
 # Author: Steven Keyes
-# This script gets the forecast using forecast.io, but it also caches the results, so the forecast can be requested several times in an hour without using up API key calls. 
+# This script gets the forecast using forecast.io, but it also caches the results, so the forecast can be requested several times in an hour without using up API key calls. This is good if you have several scripts that all require forecasts but that run at the same time.
 
 import pickle
 import forecastio
@@ -12,6 +12,23 @@ import sys
 # import an api key as the variable api_key
 from api_key import *
 
+def num2str(num):
+    num_str = str(abs(num))
+    prefix = num_str.split(".")[0].zfill(3)
+    if num >= 0:
+        prefix = "p" + prefix
+    else:
+        prefix = "n" + prefix
+    if "." in num_str:
+        suffix = num_str.split(".")[1].ljust(10,"0")
+    else:
+        suffix = 10*"0"
+    return prefix + suffix
+    
+
+def latlng2str(lat, lng):
+    return num2str(lat) + num2str(lng)
+
 def get_forecast(lat, lng, force_renew = False):
     
     # These are the things we will check to determine if we should refresh the cache
@@ -19,15 +36,18 @@ def get_forecast(lat, lng, force_renew = False):
     cache_stale = False
     # also force_renew
     
-    filename = ".forecast_cache.pkl"
+    # the filename also encodes the coordinates, so there is one cache per location
+    filename = ".forecast_cache_" + latlng2str(lat, lng) + ".pkl"
     fullname = os.path.join(sys.path[0], filename)
+    
+    stale_time = 3600 # seconds
     
     try:
         # check the timestamp of the cache file (in seconds)
         last_modified = os.path.getmtime(fullname)
         age = time.time() - last_modified
         # check if it's more than 1 hour old
-        if age > 3600:
+        if age > stale_time:
             cache_stale = True
     except OSError as e:
         # we can handle "no such file" errors
