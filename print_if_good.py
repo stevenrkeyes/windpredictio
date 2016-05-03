@@ -52,8 +52,4 @@ if acceptableHours:
     print "Acceptable conditions for fire-eating have been found one or two days from now"
     print "on " + str(tomorrow) + " or " + str(dayAfterTomorrow) + ". Here is the hourly weather report for those evenings:"
     print 
-    for hour in hoursOfInterest:
-        print str(hour.time.day) + " " + str(hour.time.hour) + ":00: " + hour.summary + ", " + \
-              str(int(hour.temperature)) + degree_sign + "F, wind " + str(hour.windSpeed) + \
-              " mph to the " + bearingToCompassDirection(hour.windBearing) + \
-              ", " + str(100*hour.precipProbability) + "% precip."
+    nice_hourly_print(hoursOfInterest)
