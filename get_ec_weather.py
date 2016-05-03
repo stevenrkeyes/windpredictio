@@ -2,12 +2,13 @@
 # Author: Steven Keyes
 # gets the hourly weather forcast for EC courtyard
 
-import forecastio
 import pytz
 import warnings
 
 # import an api key as the variable api_key
 from api_key import *
+
+from get_forecast import *
 
 # East Campus Courtyard
 lat = 42.359951
@@ -15,9 +16,7 @@ lng = -71.088215
 
 # get the hourly weather forecast for EC courtyard for the next 49 hours
 def get_ec_weather():
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        forecast = forecastio.load_forecast(api_key, lat, lng)
+    forecast = get_forecast(lat, lng)
     
     byHour = forecast.hourly()
     
