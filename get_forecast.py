@@ -7,6 +7,7 @@ import forecastio
 import time
 import os
 import warnings
+import sys
 
 # import an api key as the variable api_key
 from api_key import *
@@ -19,10 +20,11 @@ def get_forecast(lat, lng, force_renew = False):
     # also force_renew
     
     filename = ".forecast_cache.pkl"
+    fullname = os.path.join(sys.path[0], filename)
     
     try:
         # check the timestamp of the cache file (in seconds)
-        last_modified = os.path.getmtime(filename)
+        last_modified = os.path.getmtime(fullname)
         age = time.time() - last_modified
         # check if it's more than 1 hour old
         if age > 3600:
@@ -42,12 +44,12 @@ def get_forecast(lat, lng, force_renew = False):
             # which I'll have to debug later
             warnings.simplefilter("ignore")
             forecast = forecastio.load_forecast(api_key, lat, lng)
-        f = open(filename, "wb")
+        f = open(fullname, "wb")
         pickle.dump(forecast, f, -1)
         f.close()
     else:
         # otherwise, get the forecast from the cache
-        f = open(filename, "rb")
+        f = open(fullname, "rb")
         forecast = pickle.load(f)
         f.close()
     # and return the forecast
