@@ -23,8 +23,9 @@ def nice_hourly_print(hour_forecast):
             nice_hourly_print(hour)
     else:
         hour = hour_forecast
-        print str(hour.time.month) + "/" + str(hour.time.day) + " " + str(hour.time.hour) + "hr: " + hour.summary + ", " + \
+        summaryStr =  str(hour.time.month) + "/" + str(hour.time.day) + " " + str(hour.time.hour) + "hr: " + hour.summary + ", " + \
               str(int(hour.temperature)) + degree_sign + "F, wind " + str(hour.windSpeed) + \
               " mph to the " + bearingToCompassDirection(hour.windBearing) + \
               ", " + str(100*hour.precipProbability) + "% precip."
+        print summaryStr.encode('utf-8')
 
