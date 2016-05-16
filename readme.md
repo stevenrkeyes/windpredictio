@@ -6,7 +6,7 @@ email if anything is printed.
 
 `0 9 * * * python /path/to/windpredictio/print_if_good.py`
 
-This script requires forecastio be installed with ZeeG's python wrappers.
+This script requires forecastio be installed with ZeevG's python wrappers.
 
 In order to use this script, you must get an API key for forecastio
 (see forecast.io). Then, place the api key in a file called
